@@ -124,26 +124,105 @@ router.post('/add-product', function(req, res){
 
 });
 
-router.post('/reorder-pages', function(req, res){
-    var ids = req.body['id[]'];
+router.get('/edit-product/:id', function (req, res){
+    var errors;
 
-    var count = 0;
+    if (req.session.errors) errors = req.session.errors;
+    req.session.errors =null;
 
-    for (var i = 0; i < ids.length; i++){
-        var id = ids[i];
-        count++;
+    Category.find(function(err, categories){
 
-        (function(count){
+        Product.findById(req.params.id, function(err, p){
+           if(err){
+               console.log(err);
+               res.redirect('/admin/products');
+           } else {
+               var galleryDir = 'public/product_images/' + p._id + '/gallery';
+               var galleryImages = null;
 
-            Page.findById(id, function(err, page){
-                page.sorting = count;
-                page.save(function(err){
-                    if(err){
-                        return console.log(err);
+               fs.readdir(galleryDir, function(err, files){
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        galleryImages = files;
+                        res.render('admin/edit_product', {
+                            title: p.title,
+                            errors: errors,
+                            desc: p.desc,
+                            categories: categories,
+                            category: p.category.replace(/\s+/g, '-').toLowerCase(),
+                            price: p.price,
+                            image: p.image,
+                            galleryImages: galleryImages
+                        });
                     }
-                });
-            });
-        })(count);
+               });
+           }
+        });
+    })
+})
+
+
+router.post('/edit-product/:id', function(req, res){
+    var imageFile = req.files !== null ? req.files.image.name : "";
+
+    req.checkBody('title', 'title must have a value').not().isEmpty();
+    req.checkBody('desc', 'Description must have a value').not().isEmpty();
+    req.checkBody('price', 'Price must have a value').isDecimal();
+    req.checkBody('image', 'You must upload an image').isImage(imageFile);
+
+    var title = req.body.title;
+    slug = title.replace(/\s+/g,'-').toLowerCase()
+    var desc = req.body.desc;
+    var price = req.body.price;
+    var category = req.body.category;
+
+    var errors = req.validationErrors();
+
+    if (errors){
+        req.session.errors = errors;
+        res.redirect('/admin/products/edit-product/' + id);
+    } else {
+        Product.findOne({slug: slug, _id: {'$ne': id}}, function(err, p){
+            if (err)
+                console.log(err);
+            if (p) {
+                req.flash('danger', 'Product title exists, choose another one');
+                res.redirect('/admin/products/edit-product/' + id);
+            } else {
+                Product.findById(id, function(err, p){
+                    if(err) console.log(err);
+                    p.title = title;
+                    p.slug = slug;
+                    p.desc = desc;
+                    p.price = parseFloat(price).toFixed(2);
+                    p.category = category;
+                    if (imageFile != ""){
+                        p.image = imageFile;
+                    }
+                    p.save(function(err){
+                        if (err)
+                        {console.log(err);}
+                        if (imageFile != ""){
+                            if (pimage != ""){
+                                fs.remove('public/product_images/' + id + '/'+ pimage, function(err){
+                                    if (err)
+                                        console.log(err);
+                                });
+                            }
+                            var productImage = req.files.image;
+                            var path = 'public/product_images/' + id + '/' + imageFile;
+
+                            productImage.mv(path, function(err){
+                                return console.log(err);
+                            });
+                        }
+                        req.flash('success', 'Product edited');
+                        res.redirect('/admin/products/edit-product/' + id);
+                    })
+                })
+            }
+        });
     }
 });
 
