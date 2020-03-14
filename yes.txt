@@ -1,3 +1,4 @@
 npm install --save express ejs
 npm install -g nodemon
 npm install --save body-parser
+npm install --save passport

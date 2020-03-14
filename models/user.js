@@ -25,7 +25,11 @@ var UserSchema = mongoose.Schema({
     phoneNumber: {
         type: Number,
         required: true
+    },
+    admin: {
+        type: Number,
+        required: true
     }
 });
 
-var User = module.exports = mongoose.model('User', ProductSchema);
+var User = module.exports = mongoose.model('User', UserSchema);
