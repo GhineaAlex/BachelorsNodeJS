@@ -4,7 +4,7 @@ var fs = require('fs-extra');
 var auth = require('../config/auth');
 var isUser = auth.isUser;
 
-var Product = require('../models/product');
+var Diploma = require('../models/diploma');
 
 var Category = require('../models/category');
 
@@ -12,9 +12,9 @@ router.get('/', isUser, function(req, res){
     Product.find(function (err, products){
         if (err)
             console.log(err);
-        res.render('all_products', {
-            title: 'All products',
-            products: products
+        res.render('all_diplomas', {
+            title: 'All diplomas',
+            diplomas: diplomas
         });
     });
 });

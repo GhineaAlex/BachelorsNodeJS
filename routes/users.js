@@ -62,7 +62,7 @@ router.post('/register', function (req, res){
                                 console.log(err)
                             } else{
                                 req.flash('success', 'you are not registered');
-                                res.redirect('/user/login');
+                                res.redirect('/users/login');
                             }
                         })
                     })
@@ -72,7 +72,24 @@ router.post('/register', function (req, res){
     }
 });
 
+//GET LOGIN
+
+router.get('/login', function(req, res){
+    if (res.locals.user) res.redirect('/');
+
+    res.render('login', {
+        title: 'Log in'
+    })
+})
 
 
+//POST LOGIN
+router.post('/login', function(req, res, next){
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/users/login',
+        failureFlash: true
+    })(req, res, next);
+})
 
 module.exports = router;

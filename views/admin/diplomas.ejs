@@ -1,0 +1,43 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title"> Diplomas </h2>
+<a href="/admin/diplomas/add-diploma" class="btn btn-primary">Add a new diploma</a>
+<br><br>
+
+<% if (count > 0) { %>
+
+
+
+<table class="table table-striped">
+    <thead>
+    <tr class="home">
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>City</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% diplomas.forEach(function(diploma){ %>
+        <tr>
+            <td><%= diploma.lastName %></td>
+            <td><%= diploma.firstName %></td>
+            <td><%= diploma.category %></td>
+            <td><%= diploma.desc %></td>
+            <td><%= diploma.city %></td>
+            
+        </tr>
+    <% }); %>
+    </tbody>
+
+</table>
+<% } else { %>
+<h3 class="text-center">No diplomas here</h3>
+<% } %>
+
+<script>
+
+</script>
+
+<%- include('../_layouts/adminfooter') %>
