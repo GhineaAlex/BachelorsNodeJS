@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
-
+var passport = require('passport');
 var Page = require('../models/page');
 
 router.get('/', function(req, res){
+	console.log(req.user);
 	Page.findOne({slug: 'home'}, function(err, page){
 		if (err)
 			console.log(err);

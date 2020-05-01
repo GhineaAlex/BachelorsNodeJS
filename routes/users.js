@@ -16,7 +16,7 @@ router.post('/register', function (req, res){
     var email = req.body.email;
     var username = req.body.username;
     var password = req.body.password;
-    var password = req.body.password2;
+    var password2 = req.body.password2;
     var city = req.body.city;
     var phoneNumber = req.body.phoneNumber;
 
@@ -47,7 +47,7 @@ router.post('/register', function (req, res){
                     email: email,
                     username: username,
                     password: password,
-                    admin: 1,
+                    admin: 0,
                     city: city,
                     phoneNumber: phoneNumber
                 });
@@ -78,7 +78,7 @@ router.get('/login', function(req, res){
     if (res.locals.user) res.redirect('/');
 
     res.render('login', {
-        title: 'Log in'
+        title: 'Login'
     })
 })
 
@@ -90,6 +90,16 @@ router.post('/login', function(req, res, next){
         failureRedirect: '/users/login',
         failureFlash: true
     })(req, res, next);
+})
+
+//GET LOGOUT
+router.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+
+    res.render('logout', {
+        title: "Logout"
+    })
 })
 
 module.exports = router;

@@ -67,7 +67,8 @@ app.use(session({
 	secret: 'keyboard cat',
 	resave: false,
 	saveUninitialized: true,
-	cookie: {secure: true}
+	cookie: { httpOnly: true,
+		maxAge: 60 * 60 * 1000}
 }));
 
 //Express validator middleware
@@ -113,15 +114,18 @@ app.use(function (req, res, next) {
   next();
 });
 
-//Passport config
-require('./config/passport')(passport);
 //Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
+//Passport config
+require('./config/passport')(passport);
+app.use(function(req, res, next) {
+	console.log(req.user);	
+	next();
+});
 
 
 app.get('*', function(req, res, next){
-	res.locals.cart = req.session.cart;
 	res.locals.user = req.user || null;
 	next();
 });

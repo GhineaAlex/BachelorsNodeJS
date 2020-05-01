@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 
 //User Schema
 var UserSchema = mongoose.Schema({
-    name: {
+    numeUniv: {
         type: String,
         required: true
     },
-    city: {
+    numeFac: {
         type: String,
         required: true
     },
