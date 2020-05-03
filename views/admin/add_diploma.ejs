@@ -1,4 +1,4 @@
-<%- include('../_layouts/adminheader') %>
+<%- include('../_layouts/header') %>
 
 <h2 class="page-title"> Add a diploma</h2>
 <a href="/admin/diplomas" class="btn btn-primary">Back to all diplomas</a>
@@ -43,6 +43,14 @@
         <label for="">Document</label>
         <input type="file" class="form-control" name="document" id="document">
         <img src="#" id="imgPreview" alt="">
+    </div>
+
+    <div class = "form-group">
+        <label>FileName</label>
+        <input type="text" name="fileName">
+        <br><br>
+        <label>Upload</label>
+        <input type="file" name="file">
     </div>
 
     <button class="btn btn-default"> Submit</button>

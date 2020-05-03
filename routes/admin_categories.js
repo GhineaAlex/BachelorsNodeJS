@@ -14,62 +14,48 @@ router.get('/', function(req, res){
 });
 
 //GET add page
-router.get('/add-page', function(req, res){
+router.get('/add-category', function(req, res){
 
     var title = "";
-    var slug = "";
-    var content = "";
 
-    res.render('admin/add_page', {
-        title: title,
-        slug: slug,
-        content: content
+    res.render('admin/add_category', {
+        title: title
     });
 });
 
 //POST add page
-router.post('/add-page', function(req, res){
-
-    req.checkBody('title', 'title must have a value').not().isEmpty();
-    req.checkBody('content', 'content must have a value').not().isEmpty();
+router.post('/add-category', function(req, res){
+    console.log('aici');
+    req.checkBody('title', 'Este nevoie de un nume pentru document').not().isEmpty();
 
     var title = req.body.title;
-    var slug = req.body.slug.replace(/\s+/g,'-').toLowerCase();
-    if (slug == "") { slug = title.replace(/\s+/g,'-').toLowerCase()}
-
-    var content = req.body.content;
-
+    var slug = title.replace(/\s+/g, '-').toLowerCase();
     var errors = req.validationErrors();
 
     if(errors) {
-        res.render('admin/add_page', {
+        res.render('admin/add_category', {
             errors: errors,
             title: title,
-            slug: slug,
-            content: content
+            user: req.user
         });
     } else {
-        Page.findOne({slug: slug}, function(err, page){
+        Category.findOne({slug: slug}, function(err, page){
             if (page) {
-                req.flash('danger', 'Page slug exists, choose another page');
-                res.render('admin/add_page', {
-                    title: title,
-                    slug: slug,
-                    content: content
+                req.flash('danger', 'Acest tip de document exista deja');
+                res.render('admin/add_category', {
+                    title: title
                 });
             } else{
-                var page = new Page({
+                var category = new Category({
                     title: title,
-                    slug: slug,
-                    content: content,
-                    sorting: 100
+                    slug: slug
                 });
 
-                page.save(function(err){
+                category.save(function(err){
                     if(err)
                         return console.log(err);
-                    req.flash('success', 'Page has been added');
-                    res.redirect('/admin/pages');
+                    req.flash('success', 'Tipul de document a fost incarcat');
+                    res.redirect('/admin/categories');
                 });
             }
         });
@@ -78,28 +64,28 @@ router.post('/add-page', function(req, res){
 
 });
 
-router.post('/reorder-pages', function(req, res){
-    var ids = req.body['id[]'];
+// router.post('/reorder-pages', function(req, res){
+//     var ids = req.body['id[]'];
 
-    var count = 0;
+//     var count = 0;
 
-    for (var i = 0; i < ids.length; i++){
-        var id = ids[i];
-        count++;
+//     for (var i = 0; i < ids.length; i++){
+//         var id = ids[i];
+//         count++;
 
-        (function(count){
+//         (function(count){
 
-            Page.findById(id, function(err, page){
-                page.sorting = count;
-                page.save(function(err){
-                    if(err){
-                        return console.log(err);
-                    }
-                });
-            });
-        })(count);
-    }
-});
+//             Page.findById(id, function(err, page){
+//                 page.sorting = count;
+//                 page.save(function(err){
+//                     if(err){
+//                         return console.log(err);
+//                     }
+//                 });
+//             });
+//         })(count);
+//     }
+// });
 
 //Exports
 module.exports = router;

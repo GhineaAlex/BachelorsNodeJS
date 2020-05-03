@@ -5,13 +5,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Jekyll v3.8.6">
   <title>Admin Area</title>
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/css/style.css"/>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://use.fontawesome.com/f46793f924.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
   <!-- Custom styles for this template -->
 </head>
 <body>
@@ -19,6 +23,18 @@
   <a class="navbar-brand" href="/" target="_blank">Diploma Licenta Blockchain</a>
   <div class="collapse navbar-collapse" >
     <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/pages">Pages</a>
+      </li>
+      <li>
+        <a class="nav-link" href="/admin/categories">Categories</a>
+      </li>
+      <li>
+        <a class="nav-link" href="/admin/products">Products</a>
+      </li>
+      <li>
+        <a class="nav-link" href="/admin/diplomas">Diplomas</a>
+      </li>
       <% pages.forEach(function(page) { %>
       <% if (page.slug == "home") { %>
           <li class="nav-link"><a href="/"><%= page.title %></a></li>
@@ -31,7 +47,6 @@
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      
       <% if (user) { %>
       <li><a href="/users/logout">Hi, <%= user.username %> Logout</a></li>
         <% } else { %>
@@ -51,8 +66,5 @@
         </div>
     <% }); %>
   <% }%>
-  <div class="row">
-    
-    <div class="col-xs-12 col-md-8">
 
   
