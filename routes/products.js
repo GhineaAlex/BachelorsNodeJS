@@ -8,7 +8,7 @@ var Product = require('../models/product');
 
 var Category = require('../models/category');
 
-router.get('/', function(req, res){
+router.get('/', isUser, function(req, res){
     Product.find(function (err, products){
         if (err)
             console.log(err);
@@ -20,7 +20,6 @@ router.get('/', function(req, res){
 });
 
 router.get('/:category', function(req, res){
-    
     var categorySlug = req.params.category;
     Category.findOne({slug: categorySlug}, function(err, c){
         Product.find({category: categorySlug}, function(err, products){

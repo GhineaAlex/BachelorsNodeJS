@@ -3,7 +3,8 @@ var router = express.Router();
 var mkdirp = require('mkdirp');
 var fs = require('fs-extra');
 var resizeImg = require('resize-img');
-
+var auth = require('../config/auth');
+var isUser = auth.isUser;
 //get product model
 var Product = require('../models/product');
 
@@ -11,7 +12,7 @@ var Product = require('../models/product');
 var Category = require('../models/category');
 
 // GET products index
-router.get('/', function(req, res){
+router.get('/', isUser, function(req, res){
     var count;
     Product.count(function(err, c){
         count = c;
@@ -26,7 +27,7 @@ router.get('/', function(req, res){
 });
 
 //GET add page
-router.get('/add-product', function(req, res){
+router.get('/add-product', isUser, function(req, res){
 
     var title = "";
     var desc = "";
@@ -44,7 +45,7 @@ router.get('/add-product', function(req, res){
 });
 
 //POST add product
-router.post('/add-product', function(req, res){
+router.post('/add-product', isUser, function(req, res){
     //console.log(typeof req.files.image);
     //.log(req.files);
     var imageFile = req.files !== null ? req.files.image.name : "";
@@ -124,7 +125,7 @@ router.post('/add-product', function(req, res){
 
 });
 
-router.get('/edit-product/:id', function (req, res){
+router.get('/edit-product/:id', isUser, function (req, res){
     var errors;
 
     if (req.session.errors) errors = req.session.errors;
@@ -163,7 +164,7 @@ router.get('/edit-product/:id', function (req, res){
 })
 
 
-router.post('/edit-product/:id', function(req, res){
+router.post('/edit-product/:id', isUser, function(req, res){
     var imageFile = req.files !== null ? req.files.image.name : "";
 
     req.checkBody('title', 'title must have a value').not().isEmpty();

@@ -30,6 +30,10 @@ var DiplomaSchema = mongoose.Schema({
     },
     document: {
         type: String
+    },
+    hashId: {
+      type: String,
+      required: true
     }
 });
 

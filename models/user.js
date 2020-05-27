@@ -29,6 +29,10 @@ var UserSchema = mongoose.Schema({
     admin: {
         type: Number,
         required: true
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Diploma"
     }
 });
 

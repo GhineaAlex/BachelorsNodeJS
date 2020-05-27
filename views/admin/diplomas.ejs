@@ -16,6 +16,8 @@
         <th>Category</th>
         <th>Description</th>
         <th>City</th>
+        <th>Preview document</th>
+        <th>Fisierul IPFS</th>
     </tr>
     </thead>
     <tbody>
@@ -26,7 +28,16 @@
             <td><%= diploma.category %></td>
             <td><%= diploma.desc %></td>
             <td><%= diploma.city %></td>
-            
+            <td>
+                <% if (diploma.document == "") { %>
+                <img src="/images/noimage.png">
+                <% } else { %>
+                <img src="/diploma_images/<%= diploma._id %>/<%= diploma.document %>">
+                <% }%>
+            </td>
+            <% var url = "http://127.0.0.1:8080/ipfs/" + diploma.hashId %>
+            <% console.log("url ul este" + url) %>
+            <td><a href= <%=url %>> <%= diploma.hashId %></a></td>
         </tr>
     <% }); %>
     </tbody>

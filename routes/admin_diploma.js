@@ -5,19 +5,20 @@ var fs = require('fs-extra');
 var resizeImg = require('resize-img');
 var ipfsClient = require('ipfs-http-client');
 var Diploma = require('../models/diploma');
-
+var auth = require('../config/auth');
+var isUser = auth.isUser;
 var Category = require('../models/category');
 
 //ipfs connection
-const ipfs = new ipfsClient({host :'localhost', port: '5001', protocol: 'http'});
+const ipfs = new ipfsClient({ host: 'localhost', port: '5001', protocol: 'http' });
 
-router.get('/', function(req, res){
+router.get('/', isUser, function (req, res) {
     var count;
-    Diploma.count(function(err,c){
+    Diploma.count(function (err, c) {
         count = c;
     });
 
-    Diploma.find(function(err, diplomas){
+    Diploma.find(function (err, diplomas) {
         res.render('admin/diplomas', {
             diplomas: diplomas,
             count: count
@@ -25,15 +26,15 @@ router.get('/', function(req, res){
     });
 });
 
-router.get('/add-diploma', function(req, res){
+router.get('/add-diploma', isUser, function (req, res) {
     var lastName = "";
     var firstName = "";
     var degree = "";
     var city = "";
     var desc = "";
     var document = "";
-    
-    Category.find(function(err, categories){
+
+    Category.find(function (err, categories) {
         res.render('admin/add_diploma', {
             lastName: lastName,
             firstName: firstName,
@@ -46,7 +47,7 @@ router.get('/add-diploma', function(req, res){
     });
 });
 
-router.post('/add-diploma', function(req, res){
+router.post('/add-diploma', isUser, function (req, res) {
     var imageDocument = req.files !== null ? req.files.document.name : "";
 
     req.checkBody('lastName', "You must insert last name").not().isEmpty();
@@ -63,15 +64,15 @@ router.post('/add-diploma', function(req, res){
     var firstName = req.body.firstName;
     var city = req.body.city;
     var category = req.body.category;
-    
+
     var file = req.files.file;
     var fileName = req.body.fileName;
     var filePath = 'files/' + fileName;
 
     var errors = req.validationErrors();
 
-    if(errors){
-        Category.find(function(err, categories){
+    if (errors) {
+        Category.find(function (err, categories) {
             res.render('admin/add_diploma', {
                 errors: errors,
                 degree: degree,
@@ -83,61 +84,59 @@ router.post('/add-diploma', function(req, res){
             });
         });
     } else {
-        console.log('path-ul este = ' + fileName);
-        //console.log('file path este = ' + file);
-        //console.log('continutul este = ' + JSON.stringify(file));
-        //const file = fs.readFileSync(filePath);
-       
-        file.mv(filePath, async(err) => {
-            if (err){
-                console.log('err download');
-            }
-            const fileHash = await addFile(fileName, filePath);
-            fs.unlink(filePath, (err) => {
-                if(err) console.log(err);
-            });
-        })
+        Diploma.findOne({ slug: slug }, function (err, diploma) {
+            console.log('path-ul este = ' + fileName);
 
-        Diploma.findOne({slug: slug}, function(err, diploma){
-            var diploma = new Diploma({
-                lastName: lastName,
-                firstName: firstName,
-                degree: degree,
-                city: city,
-                document: imageDocument,
-                desc: desc,
-                category: category,
-                slug: slug
-            })
+            file.mv(filePath, async (err) => {
+                if (err) {
+                    console.log('err download');
+                }
+                const fileHash = await addFile(fileName, filePath);
+                console.log('fileHash ' + fileHash);
+                fs.unlink(filePath, (err) => {
+                    if (err) console.log(err);
+                });
+                var diploma = new Diploma({
+                    lastName: lastName,
+                    firstName: firstName,
+                    degree: degree,
+                    city: city,
+                    document: imageDocument,
+                    desc: desc,
+                    category: category,
+                    slug: slug,
+                    hashId: fileHash
+                })
 
-            diploma.save(function(err){
-                if(err)
-                    return console.log(err);
+                diploma.save(function (err) {
+                    if (err)
+                        return console.log(err);
                     mkdirp.sync('public/diploma_images/' + diploma._id);
-
+    
                     mkdirp.sync('public/diploma_images/' + diploma._id + '/gallery');
-
+    
                     mkdirp.sync('public/diploma_images/' + diploma._id + '/gallery/thumbs');
-
-                    if (imageDocument != ""){
+    
+                    if (imageDocument != "") {
                         var diplomaImage = req.files.document;
                         var path = 'public/diploma_images/' + diploma._id + '/' + imageDocument;
-
-                        diplomaImage.mv(path, function(err){
+    
+                        diplomaImage.mv(path, function (err) {
                             return console.log(err)
                         });
                     }
-                    req.flash('success', 'Added the diploma');
+                    req.flash('success', 'Diploma a fost adaugata cu succes!');
                     res.redirect('/admin/diplomas');
+                })
             })
         })
     }
 })
 
-const addFile = async(fileName, filePath) => {
+const addFile = async (fileName, filePath) => {
     const file = fs.readFileSync(filePath);
     let results = [];
-    for await(const result of ipfs.add({path: fileName, content: file})){
+    for await (const result of ipfs.add({ path: fileName, content: file })) {
         results.push(result);
     }
     console.log('hash-ul este = ' + results[0].cid);

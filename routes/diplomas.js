@@ -9,7 +9,7 @@ var Diploma = require('../models/diploma');
 var Category = require('../models/category');
 
 router.get('/', isUser, function(req, res){
-    Product.find(function (err, products){
+    Diploma.find(function (err, diplomas){
         if (err)
             console.log(err);
         res.render('all_diplomas', {
