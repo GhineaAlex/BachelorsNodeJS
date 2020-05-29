@@ -16,35 +16,23 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://use.fontawesome.com/f46793f924.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <!-- Custom styles for this template -->
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
   <a class="navbar-brand" href="/" target="_blank">Diploma Licenta Blockchain</a>
   <div class="collapse navbar-collapse" >
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/admin/pages">Pages</a>
-      </li>
-      <li>
-        <a class="nav-link" href="/admin/categories">Categories</a>
-      </li>
-      <li>
-        <a class="nav-link" href="/admin/products">Products</a>
-      </li>
-      <li>
-        <a class="nav-link" href="/admin/diplomas">Diplomas</a>
-      </li>
-      <% pages.forEach(function(page) { %>
-      <% if (page.slug == "home") { %>
-          <li class="nav-link"><a href="/"><%= page.title %></a></li>
-      <% } else {%>
-      <li class="nav-link"><a href="/<%= page.slug %>"><%= page.title %></a></li>
-      <% } %>
-      <% }); %>
-
-    </ul>
     <form class="form-inline my-2 my-lg-0">
+      <ul class="navbar-nav mr-auto"></ul>
+      <% pages.forEach(function(page) { %>
+        <% if (page.slug == "home") { %>
+            <li class="nav-link"><a href="/"><%= page.title %></a></li>
+        <% } else {%>
+        <li class="nav-link"><a href="/<%= page.slug %>"><%= page.title %></a></li>
+        <% } %>
+        <% }); %>
+        </ul>
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       <% if (user) { %>
@@ -53,6 +41,7 @@
         <li class="nav-link"><a href="/users/register">Register</a></li>
       <li class="nav-link"><a href="/users/login">Login</a></li>
       <% } %>
+      
     </form>
   </div>
 </nav>

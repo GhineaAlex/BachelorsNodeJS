@@ -27,17 +27,17 @@ router.get('/', isUser, function (req, res) {
 });
 
 router.get('/add-diploma', isUser, function (req, res) {
-    var lastName = "";
-    var firstName = "";
     var degree = "";
     var city = "";
     var desc = "";
     var document = "";
+    // var CNP = "";
+    // var birthDate = "";
+    // var startYearUni = "";
+    // var endYearUni = "";
 
     Category.find(function (err, categories) {
         res.render('admin/add_diploma', {
-            lastName: lastName,
-            firstName: firstName,
             degree: degree,
             city: city,
             desc: desc,
@@ -49,21 +49,20 @@ router.get('/add-diploma', isUser, function (req, res) {
 
 router.post('/add-diploma', isUser, function (req, res) {
     var imageDocument = req.files !== null ? req.files.document.name : "";
-
-    req.checkBody('lastName', "You must insert last name").not().isEmpty();
-    req.checkBody('firstName', "You must insert first name").not().isEmpty();
     req.checkBody('degree', "You need to insert the type of degree").not().isEmpty();
     req.checkBody('city', "You must insert the city").not().isEmpty();
     req.checkBody('document', "You must insert a document").isImage(imageDocument)
     req.checkBody('desc', "You must provide a description").not().isEmpty();
+    req.checkBody('student', "Trebuie sa adaugi numele studentului").not().isEmpty();
+
+
 
     var degree = req.body.degree;
     slug = degree.replace(/\s+/g, '-').toLowerCase();
     var desc = req.body.desc;
-    var lastName = req.body.lastName;
-    var firstName = req.body.firstName;
     var city = req.body.city;
     var category = req.body.category;
+    var student = req.body.student;
 
     var file = req.files.file;
     var fileName = req.body.fileName;
@@ -76,8 +75,6 @@ router.post('/add-diploma', isUser, function (req, res) {
             res.render('admin/add_diploma', {
                 errors: errors,
                 degree: degree,
-                lastName: lastName,
-                firstName: firstName,
                 city: city,
                 desc: desc,
                 user: req.user
@@ -97,13 +94,12 @@ router.post('/add-diploma', isUser, function (req, res) {
                     if (err) console.log(err);
                 });
                 var diploma = new Diploma({
-                    lastName: lastName,
-                    firstName: firstName,
                     degree: degree,
                     city: city,
                     document: imageDocument,
                     desc: desc,
                     category: category,
+                    student: student,
                     slug: slug,
                     hashId: fileHash
                 })

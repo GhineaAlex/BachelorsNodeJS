@@ -1,0 +1,48 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title"> Students </h2>
+<a href="/admin/students/add-student" class="btn btn-primary">Add a new student</a>
+<br><br>
+
+
+<table class="table table-striped">
+    <thead>
+    <tr class="home">
+        <th>Nume</th>
+        <th>Prenume</th>
+        <th>Data nastere</th>
+        <th>Tara nastere</th>
+        <th>Judet nastere</th>
+        <th>Sex</th>
+        <th>CNP</th>
+        <th>Serie CI</th>
+        <th>Data expirare CI</th>
+        <th>Nume Specializare</th>
+        <th>Tip Studiu</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% students.forEach(function(student){ %>
+        <tr>
+            <td><%= student.lastName %></td>
+            <td><%= student.firstName %></td>
+            <td><%= student.birthDate %></td>
+            <td><%= student.birthCountry %></td>
+            <td><%= student.birthCounty %></td>
+            <td><%= student.gender %></td>
+            <td><%= student.cnp %></td>
+            <td><%= student.idCi %></td>
+            <td><%= student.dateCi %></td>
+            <td><%= student.collegeName %></td>
+            <td><%= student.typeOfStudy %></td>
+        </tr>
+    <% }); %>
+    </tbody>
+
+</table>
+
+<script>
+
+</script>
+
+<%- include('../_layouts/adminfooter') %>

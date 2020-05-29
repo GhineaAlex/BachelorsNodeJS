@@ -1,0 +1,81 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title"> Add a student </h2>
+<a href="/admin/students" class="btn btn-primary">Back to all students</a>
+<br><br>
+<div class="card bg-light">
+    <article class="card-body mx-auto" style="max-width: 1200px;">
+        <form method="post" action="/admin/students/add-student">
+            <div class="form-group input-group">
+                <div class="input-group-prepend"></div>
+                <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
+                <div class="input-mysize"><input type="text" name="lastName" class="form-control" placeholder="Nume">
+                </div>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend"></div>
+                <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
+                <div class="input-mysize"><input type="text" name="firstName" class="form-control"
+                        placeholder="Prenume"></div>
+            </div>
+            <label>Data nastere</label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend"></div>
+                <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
+                <div class="input-mysize"><input type="date" name="birthDate" class="form-control"
+                        placeholder="Data nastere"></div>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend"></div>
+                <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
+                <div class="input-mysize"><input type="text" name="birthCountry" class="form-control"
+                        placeholder="Tara nastere"></div>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend"></div>
+                <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
+                <div class="input-mysize"><input type="text" name="birthCounty" class="form-control"
+                        placeholder="Judet nastere"></div>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend"></div>
+                <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
+                <div class="input-mysize"><input type="text" name="gender" class="form-control" placeholder="Sex"></div>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend"></div>
+                <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
+                <div class="input-mysize"><input type="text" name="cnp" class="form-control" placeholder="CNP"></div>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend"></div>
+                <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
+                <div class="input-mysize"><input type="text" name="idCi" class="form-control" placeholder="Serie CI">
+                </div>
+            </div>
+            <label>Data expirare CI</label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend"></div>
+                <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
+                <div class="input-mysize"><input type="month" min="2020-08" name="dateCi" class="form-control"
+                        placeholder="Data expirare CI"></div>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend"></div>
+                <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
+                <div class="input-mysize"><input type="text" name="collegeName" class="form-control"
+                        placeholder="Nume Specializare"></div>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend"></div>
+                <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
+                <div class="input-mysize"><input type="text" name="typeOfStudy" class="form-control"
+                        placeholder="Tip studiu"></div>
+            </div>
+
+            <button class="btn btn-primary">Inregistreaza student</button>
+        </form>
+    </article>
+</div>
+
+<%- include('../_layouts/adminfooter') %>

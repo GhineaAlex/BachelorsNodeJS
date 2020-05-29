@@ -34,3 +34,19 @@ a.pa {
     z-index: 1;
 }
 .input-mysize { width: 600px }
+.text-size {
+    font-size: 90%;
+    font-style: italic;
+}
+.bottom {
+    min-height: 100%;
+}
+footer {
+position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: red;
+   color: white;
+   text-align: center;
+}

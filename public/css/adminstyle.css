@@ -8,3 +8,19 @@
 #imgPreview {
     margin: 20px;
 }
+.text-size {
+    font-size: 5px;
+}
+.bottom {
+    min-height: 100%;
+}
+footer {
+    position: fixed;
+       left: 0;
+       bottom: 0;
+       width: 100%;
+       background-color: red;
+       color: white;
+       text-align: center;
+    }
+    

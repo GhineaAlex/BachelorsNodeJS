@@ -10,8 +10,8 @@ var expressValidator = require('express-validator');
 var fileUpload = require('express-fileupload');
 var passport = require('passport');
 
-
-
+// this.context.moment = require("moment"); 
+// this.context.moment.lang(this.context.page.language);
 //Connect to db
 mongoose.connect(config.database, {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
@@ -55,6 +55,16 @@ Category.find(function(err, categories){
 		app.locals.categories = categories;
 	}
 });
+
+var Student = require('./models/student');
+
+Student.find(function(err, students){
+	if(err) {
+		console.log(err);
+	} else {
+		app.locals.students = students;
+	}
+})
 
 //Express fileUpload middleware
 app.use(fileUpload());
@@ -136,6 +146,7 @@ app.get('*', function(req, res, next){
 var pages = require('./routes/pages.js');
 var adminPages = require('./routes/admin_pages.js');
 var adminCategories = require('./routes/admin_categories.js');
+var adminStudents = require('./routes/admin_students.js');
 var adminProducts = require('./routes/admin_products.js');
 var adminDiplomas = require('./routes/admin_diploma');
 var products = require('./routes/products.js');
@@ -144,6 +155,7 @@ var users = require('./routes/users.js')
 
 app.use('/admin/pages', adminPages);
 app.use('/admin/categories', adminCategories);
+app.use('/admin/students', adminStudents);
 app.use('/admin/products', adminProducts);
 app.use('/admin/diplomas', adminDiplomas);
 app.use('/diplomas', diplomas);
