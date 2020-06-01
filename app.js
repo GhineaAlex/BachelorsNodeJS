@@ -147,19 +147,15 @@ var pages = require('./routes/pages.js');
 var adminPages = require('./routes/admin_pages.js');
 var adminCategories = require('./routes/admin_categories.js');
 var adminStudents = require('./routes/admin_students.js');
-var adminProducts = require('./routes/admin_products.js');
 var adminDiplomas = require('./routes/admin_diploma');
-var products = require('./routes/products.js');
 var diplomas = require('./routes/diplomas.js');
 var users = require('./routes/users.js')
 
 app.use('/admin/pages', adminPages);
 app.use('/admin/categories', adminCategories);
 app.use('/admin/students', adminStudents);
-app.use('/admin/products', adminProducts);
 app.use('/admin/diplomas', adminDiplomas);
 app.use('/diplomas', diplomas);
-app.use('/products', products);
 app.use('/', pages);
 app.use('/users', users);
 

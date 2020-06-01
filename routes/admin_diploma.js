@@ -43,6 +43,7 @@ router.get('/add-diploma', isUser, function (req, res) {
             desc: desc,
             categories: categories,
             document: document
+            
         });
     });
 });
