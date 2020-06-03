@@ -3,8 +3,9 @@ var router = express.Router();
 
 var Page = require('../models/page');
 
-
-router.get('/', function(req, res){
+var auth = require('../config/auth');
+var isUser = auth.isUser;
+router.get('/', isUser, function(req, res){
 	Page.find({}).sort({sorting: 1}).exec(function(err, pages){
 		res.render('admin/pages', {
 			pages: pages
@@ -13,7 +14,7 @@ router.get('/', function(req, res){
 });
 
 //GET add page
-router.get('/add-page', function(req, res){
+router.get('/add-page', isUser, function(req, res){
 	
 	var title = "";
 	var slug = "";
@@ -27,7 +28,7 @@ router.get('/add-page', function(req, res){
 });
 
 //POST add page
-router.post('/add-page', function(req, res){
+router.post('/add-page', isUser, function(req, res){
 	
 	req.checkBody('title', 'title must have a value').not().isEmpty();
 	req.checkBody('content', 'content must have a value').not().isEmpty();
@@ -78,7 +79,7 @@ router.post('/add-page', function(req, res){
 	
 });
 
-router.post('/reorder-pages', function(req, res){
+router.post('/reorder-pages', isUser, function(req, res){
 	var ids = req.body['id[]'];
 
 	var count = 0;
@@ -103,7 +104,7 @@ router.post('/reorder-pages', function(req, res){
 
 //GET edit page
 
-router.get('/edit-page/:slug', function(req, res){
+router.get('/edit-page/:slug', isUser, function(req, res){
 	Page.findOne({slug: req.params.slug}, function(err, page){
 		if(err)
 			return console.log(err);
@@ -118,7 +119,7 @@ router.get('/edit-page/:slug', function(req, res){
 
 //POST Edit page
 
-router.post('/edit-page/:slug', function(req, res){
+router.post('/edit-page/:slug', isUser, function(req, res){
 	
 	req.checkBody('title', 'title must have a value').not().isEmpty();
 	req.checkBody('content', 'content must have a value').not().isEmpty();
@@ -174,7 +175,7 @@ router.post('/edit-page/:slug', function(req, res){
 
 //get delete
 
-router.get('/delete-page/:id', function(req, res){
+router.get('/delete-page/:id', isUser, function(req, res){
 	Page.findByIdAndRemove(req.params.id, function(err){
 		if(err) return console.log(err);
 		req.flash('success', 'Page deleted');

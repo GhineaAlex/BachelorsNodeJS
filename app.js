@@ -119,6 +119,11 @@ app.use(expressValidator({
 	}
 }));
 
+var moment = require('moment');
+exports.index = function(req, res) {
+	res.render('index', { moment: moment });
+ }
+
 //Express messages
 app.use(require('connect-flash')());
 app.use(function (req, res, next) {
@@ -158,7 +163,10 @@ app.use('/admin/diplomas', adminDiplomas);
 app.use('/diplomas', diplomas);
 app.use('/', pages);
 app.use('/users', users);
-
+var moment = require('moment');
+var shortDateFormat = "ddd @ h:mmA"; // this is just an example of storing a date format once so you can change it in one place and have it propagate
+app.locals.moment = moment; // this makes moment available as a variable in every EJS page
+app.locals.shortDateFormat = shortDateFormat;
 //Start the server
 var port = 3000;
 app.listen(port, function(){

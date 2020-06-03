@@ -26,13 +26,13 @@
         <tr>
             <td><%= student.lastName %></td>
             <td><%= student.firstName %></td>
-            <td><%= student.birthDate %></td>
+            <td><%= moment(student.birthDate).format('Do MMMM, YYYY');  %></td>
             <td><%= student.birthCountry %></td>
             <td><%= student.birthCounty %></td>
             <td><%= student.gender %></td>
             <td><%= student.cnp %></td>
             <td><%= student.idCi %></td>
-            <td><%= student.dateCi %></td>
+            <td><%= moment(student.dateCi).format('Do MMMM, YYYY'); %></td>
             <td><%= student.collegeName %></td>
             <td><%= student.typeOfStudy %></td>
         </tr>
@@ -41,8 +41,5 @@
 
 </table>
 
-<script>
-
-</script>
 
 <%- include('../_layouts/adminfooter') %>

@@ -5,7 +5,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <meta name="generator" content="Jekyll v3.8.6">
   <title>Admin Area</title>
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -20,38 +19,30 @@
   <script src="https://use.fontawesome.com/f46793f924.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-  <!-- Custom styles for this template -->
 </head>
+<header id="header" class="fixed-top ">
+    <div class="container-fluid">
 
+      <div class="row justify-content-center">
+        <div class="col-xl-9 d-flex align-items-center">
+          <h1 class="logo mr-auto"><a href="index.html">Diploma Blockchain</a></h1>
 
-<nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
-  <a class="navbar-brand" href="/" target="_blank">Diploma Blockchain</a>
-  <div class="collapse navbar-collapse">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="http://localhost:3000/index.html">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin/pages">Pages</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <% if (user) { %>
-      <li><a href="/users/logout">Salut, <%= user.username %> Logout</a></li>
-      <% } else { %>
-      <li class="nav-link"><a href="/users/register">Register</a></li>
-      <li class="nav-link"><a href="/users/login">Login</a></li>
-      <% } %>
-    </form>
-  </div>
-</nav>
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="http://localhost:3000/admin/diplomas">Admin Area</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <% if (user) { %>
+                <li><a href="/users/logout">Salut, <%= user.username %> Logout</a></li>
+            </ul>
+          </nav>
+            <% } else { %>
+              <a href="http://localhost:3000/users/login" class="get-started-btn scrollto">Get Started</a>
+            <% } %>
+          
+        </div>
+      </div>
 
-<main role="main" class="container">
-  <%- messages('messages', locals) %>
-  <% if (errors)  {%>
-  <% errors.forEach(function(error) { %>
-  <div class="alert alert-danger">
-    <%= error.msg %>
-  </div>
-  <% }); %>
-  <% }%>
+    </div>
+  </header>

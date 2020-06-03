@@ -5,6 +5,7 @@ var Student = require('../models/student');
 
 
 router.get('/', function(req, res){
+    
     Student.find(function(err, students){
         if(err) return console.log(err);
         res.render('admin/students', {
@@ -45,15 +46,14 @@ router.get('/add-student', function(req, res){
 
 //POST add page
 router.post('/add-student', function(req, res){
+    
     req.checkBody('lastName', 'You need to introduce a name').not().isEmpty();
     req.checkBody('firstName', 'You need to introduce a first name').not().isEmpty();
-    //req.checkBody('birthDate', 'You need to introduce a birthdate').not().isEmpty();
     req.checkBody('birthCountry', 'You need to introduce the birth country').not().isEmpty();
     req.checkBody('birthCounty', 'You need to introduce the birth county').not().isEmpty();
     req.checkBody('gender', 'You need to introduce the gender').not().isEmpty();
     req.checkBody('cnp', 'You need to introduce the cnp').not().isEmpty();
     req.checkBody('idCi', 'You need to introduce the id of the CI').not().isEmpty();
-    //req.checkBody('dateCi', 'You need to introduce the expiration date for the CI').not().isEmpty();
     req.checkBody('collegeName', 'You need to introduce the name of the college').not().isEmpty();
     req.checkBody('typeOfStudy', 'You need to introduce the type of Study').not().isEmpty();
     
@@ -111,6 +111,8 @@ router.post('/add-student', function(req, res){
 
 
 });
+
+
 
 // router.post('/reorder-pages', function(req, res){
 //     var ids = req.body['id[]'];

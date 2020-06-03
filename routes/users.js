@@ -44,7 +44,7 @@ router.post('/register', function (req, res){
             if(err) console.log(err);
 
             if (user){
-                req.flash('danger', 'Username exists');
+                req.flash('danger', 'Utilizatorul exista');
                 res.redirect('/users/register');
             } else {
                 
@@ -98,8 +98,12 @@ router.post('/login', function(req, res, next){
     passport.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/users/login',
-        failureFlash: true
+        failureFlash: true,
+        successFlash: true
     })(req, res, next);
+    passport.authenticate('local', {
+        successFlash: "bine ai venit"
+    })
 })
 
 //GET LOGOUT

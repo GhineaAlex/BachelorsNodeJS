@@ -64,6 +64,17 @@ router.post('/add-category', function(req, res){
 
 });
 
+
+//get delete
+
+router.get('/delete-category/:id', function(req, res){
+	Category.findByIdAndRemove(req.params.id, function(err){
+		if(err) return console.log(err);
+		req.flash('success', 'Category deleted');
+		res.redirect('/admin/categories/');
+	})
+})
+
 // router.post('/reorder-pages', function(req, res){
 //     var ids = req.body['id[]'];
 
