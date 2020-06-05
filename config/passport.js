@@ -9,7 +9,7 @@ module.exports = function (passport) {
             if (err)
                 console.log(err);
             if (!user){
-                return done(null, false, {message: 'No user found'});
+                return done(null, false, {message: 'Nu a fost gasit niciun utilizator'});
             }
 
             bcrypt.compare(password, user.password, function(err, isMatch){
@@ -18,7 +18,7 @@ module.exports = function (passport) {
                 if (isMatch){
                     return done(null, user);
                 } else{
-                    return done(null, false, {message: 'Wrong user'});
+                    return done(null, false, {message: 'User gresit'});
                 }
             });
         });
