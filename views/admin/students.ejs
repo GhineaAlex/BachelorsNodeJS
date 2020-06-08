@@ -1,11 +1,14 @@
 <%- include('../_layouts/adminheader') %>
 
-<h2 class="page-title"> Students </h2>
-<a href="/admin/students/add-student" class="btn btn-primary">Add a new student</a>
+<h2 class="page-title"> Studenti </h2>
+<a href="/admin/students/add-student" class="btn btn-primary">Adauga un nou student</a>
 <br><br>
 
-
-<table class="table table-striped">
+<div style="margin-bottom:20px; padding:10px; background-color:#66aaf7; color:white;">
+    <p>Cautarea poate fi realizata dupa <strong>Nume</strong>, <strong>Prenume</strong>, <strong>Varsta</strong>, <strong>Specializare</strong>, <strong>CNP</strong>:</p>  
+    <input class="form-control" id="inputFilter" type="text" placeholder="Search.." />
+</div>
+<table class="table table-striped" id="studentsTable">
     <thead>
     <tr class="home">
         <th>Nume</th>
@@ -41,5 +44,12 @@
 
 </table>
 
-
+<script>
+    $("#inputFilter").on("keyup", function() {
+      var inputValue = $(this).val().toLowerCase();
+      $("#studentsTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
+      });
+  });
+</script>
 <%- include('../_layouts/adminfooter') %>

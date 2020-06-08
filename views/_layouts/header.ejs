@@ -29,15 +29,15 @@
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="http://localhost:3000/index.html">Home</a>
+        <a class="nav-link" href="http://localhost:3000/index.html">Acasa</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/admin/pages">Pages</a>
+        <a class="nav-link" href="/admin/pages">Pagini</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <% if (user) { %>
-      <li><a href="/users/logout">Salut, <%= user.username %> Logout</a></li>
+      <li><a href="/users/logout">Buna ziua, <%= user.username %> Logout</a></li>
       <% } else { %>
       <li class="nav-link"><a href="/users/register">Register</a></li>
       <li class="nav-link"><a href="/users/login">Login</a></li>

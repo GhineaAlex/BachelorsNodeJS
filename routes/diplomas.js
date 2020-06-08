@@ -6,10 +6,6 @@ var isUser = auth.isUser;
 
 var Diploma = require('../models/diploma');
 
-var Category = require('../models/category');
-
-var Student = require('../models/student');
-
 router.get('/', isUser, function(req, res){
     Diploma.find(function (err, diplomas){
         if (err)

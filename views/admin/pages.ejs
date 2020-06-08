@@ -1,15 +1,15 @@
 <%- include('../_layouts/adminheader') %>
 
-<h2 class="page-title"> Pages </h2>
-<a href="/admin/pages/add-page" class="btn btn-primary">Add a new page</a>
+<h2 class="page-title"> Pagini </h2>
+<a href="/admin/pages/add-page" class="btn btn-primary">Adauga o noua pagina</a>
 <br><br>
 
 <table class="table table-striped sorting">
 	<thead>
 		<tr class="home">
-			<th>Title</th>
+			<th>Titlu</th>
 			<th>Edit</th>
-			<th>Delete</th>
+			<th>Sterge</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,7 +20,7 @@
 			<% if (page.slug == "home") { %>
 			<td></td>
 			<% } else {%>
-			<td><a class="confirmDeletion" href="/admin/pages/delete-page/<%= page._id %>">Delete</a></td>
+			<td><a class="confirmDeletion" href="/admin/pages/delete-page/<%= page._id %>">Sterge</a></td>
 			<% } %>
 		</tr>
 		<% }); %>

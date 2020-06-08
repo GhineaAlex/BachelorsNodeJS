@@ -1,15 +1,15 @@
 <%- include('../_layouts/adminheader') %>
 
-<h2 class="page-title"> Categories </h2>
-<a href="/admin/categories/add-category" class="btn btn-primary">Add a new category</a>
+<h2 class="page-title"> Categorii </h2>
+<a href="/admin/categories/add-category" class="btn btn-primary">Adauga o noua categorie</a>
 <br><br>
 
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Category</th>
+        <th>Categorie</th>
         <th>Edit</th>
-        <th>Delete</th>
+        <th>Sterge</th>
     </tr>
     </thead>
     <tbody>
@@ -17,7 +17,7 @@
         <tr>
             <td><%= cat.title %></td>
             <td><a href="/admin/categories/edit-category/<%= cat.slug %>">Edit</a></td>
-            <td><a class="confirmDeletion" href="/admin/categories/delete-category/<%= cat._id %>">Delete</a></td>
+            <td><a class="confirmDeletion" href="/admin/categories/delete-category/<%= cat._id %>">Sterge</a></td>
         </tr>
     <% }); %>
     </tbody>

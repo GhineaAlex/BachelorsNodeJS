@@ -44,6 +44,10 @@ var StudentSchema = mongoose.Schema({
     typeOfStudy: {
         type: String,
         required: true
+    },
+    emailStudent:{
+        type: String,
+        required: true
     }
 });
 

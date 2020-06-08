@@ -28,6 +28,7 @@ router.get('/add-student', function(req, res){
     var dateCi = "";
     var collegeName = "";
     var typeOfStudy = "";
+    var emailStudent = "";
 
     res.render('admin/add_student', {
         lastName: lastName,
@@ -40,7 +41,8 @@ router.get('/add-student', function(req, res){
         idCi: idCi,
         dateCi: dateCi,
         collegeName: collegeName,
-        typeOfStudy: typeOfStudy
+        typeOfStudy: typeOfStudy,
+        emailStudent: emailStudent
     });
 });
 
@@ -68,6 +70,7 @@ router.post('/add-student', function(req, res){
     var dateCi = req.body.dateCi;
     var collegeName = req.body.collegeName;
     var typeOfStudy = req.body.typeOfStudy;
+    var emailStudent = req.body.emailStudent;
 
     var errors = req.validationErrors();
 
@@ -96,7 +99,8 @@ router.post('/add-student', function(req, res){
                     idCi: idCi,
                     dateCi: dateCi,
                     collegeName: collegeName,
-                    typeOfStudy: typeOfStudy
+                    typeOfStudy: typeOfStudy,
+                    emailStudent: emailStudent
                 });
 
                 student.save(function(err){
@@ -111,31 +115,6 @@ router.post('/add-student', function(req, res){
 
 
 });
-
-
-
-// router.post('/reorder-pages', function(req, res){
-//     var ids = req.body['id[]'];
-
-//     var count = 0;
-
-//     for (var i = 0; i < ids.length; i++){
-//         var id = ids[i];
-//         count++;
-
-//         (function(count){
-
-//             Page.findById(id, function(err, page){
-//                 page.sorting = count;
-//                 page.save(function(err){
-//                     if(err){
-//                         return console.log(err);
-//                     }
-//                 });
-//             });
-//         })(count);
-//     }
-// });
 
 //Exports
 module.exports = router;
