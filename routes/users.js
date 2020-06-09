@@ -13,7 +13,6 @@ router.get('/register', function (req, res){
 
 
 router.post('/register', function (req, res){
-    
     var nameUniv = req.body.nameUniv;
     var nameFac = req.body.nameFac;
     var email = req.body.email;
@@ -32,7 +31,7 @@ router.post('/register', function (req, res){
     req.checkBody('phoneNumber', 'Numarul de telefon este necesar').not().isEmpty();
 
     var errors = req.validationErrors();
-
+    
     if (errors){
         res.render('register', {
             errors: errors,

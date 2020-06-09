@@ -99,35 +99,7 @@ $(function(){
       $('#header').addClass('header-scrolled');
     }
   
-  
-    // Testimonials carousel (uses the Owl Carousel library)
-    $(".testimonials-carousel").owlCarousel({
-      autoplay: true,
-      dots: true,
-      loop: true,
-      responsive: {
-        0: {
-          items: 1
-        },
-        768: {
-          items: 2
-        },
-        900: {
-          items: 3
-        }
-      }
-    });
-  
-    
-
-  
     // Initi AOS
-    function aos_init() {
-      AOS.init({
-        duration: 1000,
-        once: true
-      });
-    }
-    aos_init();
+  
   
   })(jQuery);

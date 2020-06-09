@@ -2,15 +2,26 @@ var express = require('express');
 var router = express.Router();
 var mkdirp = require('mkdirp');
 var fs = require('fs-extra');
-var resizeImg = require('resize-img');
+require('dotenv').config();
 var ipfsClient = require('ipfs-http-client');
 var Diploma = require('../models/diploma');
 var auth = require('../config/auth');
 var isUser = auth.isUser;
 var Category = require('../models/category');
 
+const nodemailer = require('nodemailer');
+console.log("adresa email " + process.env.EMAIL);
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL,      
+        pass: process.env.PASSWORD
+    }
+})
+
+
 //ipfs connection
-const ipfs = new ipfsClient({ host: 'localhost', port: '5001', protocol: 'http' });
+const ipfs = new ipfsClient({ host: process.env.host, port: process.env.portIpfs, protocol: process.env.protocol });
 
 router.get('/', isUser, function (req, res) {
     var count;
@@ -31,10 +42,6 @@ router.get('/add-diploma', isUser, function (req, res) {
     var city = "";
     var desc = "";
     var document = "";
-    // var CNP = "";
-    // var birthDate = "";
-    // var startYearUni = "";
-    // var endYearUni = "";
 
     Category.find(function (err, categories) {
         res.render('admin/add_diploma', {
@@ -55,7 +62,7 @@ router.post('/add-diploma', isUser, function (req, res) {
     req.checkBody('document', "You must insert a document").isImage(imageDocument)
     req.checkBody('desc', "You must provide a description").not().isEmpty();
     req.checkBody('student', "Trebuie sa adaugi numele studentului").not().isEmpty();
-
+    req.checkBody('emailStudent', "Trebuie sa adaugi un email").not().isEmpty();
 
 
     var degree = req.body.degree;
@@ -64,7 +71,7 @@ router.post('/add-diploma', isUser, function (req, res) {
     var city = req.body.city;
     var category = req.body.category;
     var student = req.body.student;
-
+    var emailStudent = req.body.emailStudent;
     var file = req.files.file;
     var fileName = req.body.fileName;
     var filePath = 'files/' + fileName;
@@ -102,17 +109,26 @@ router.post('/add-diploma', isUser, function (req, res) {
                     category: category,
                     student: student,
                     slug: slug,
+                    emailStudent: emailStudent,
                     hashId: fileHash
                 })
-
+                let mailOptions = {
+                    from: 'alexg343434@gmail.com',
+                    to: emailStudent,
+                    subject: 'Diploma ta este acum pe Blockchain',
+                    html: "<h2> Salut, </h2> <br> <p> Ne bucuram sa te anuntam ca diploma ta a fost incarcata pe Blockchain. Hash-ul generat de aplicatie este: </p>" + fileHash + "<br>Cu acest hash vei avea posibilitatea de a accesa de oriunde diploma ta. De asemenea, poti trimite oricarei persoane acest hash pentru a confirma ca ai o diploma legitima. Daca ai alte intrebari nu ezita ne contactezi la adresa contact@blockchain.ro. <br><br> Cu respect, <br>echipa UniBuc"
+                }
+                transporter.sendMail(mailOptions, function(err, data){
+                    if(err){
+                        console.log('error');
+                    } else {
+                        console.log('email sent');
+                    }
+                })
                 diploma.save(function (err) {
                     if (err)
                         return console.log(err);
                     mkdirp.sync('public/diploma_images/' + diploma._id);
-    
-                    mkdirp.sync('public/diploma_images/' + diploma._id + '/gallery');
-    
-                    mkdirp.sync('public/diploma_images/' + diploma._id + '/gallery/thumbs');
     
                     if (imageDocument != "") {
                         var diplomaImage = req.files.document;

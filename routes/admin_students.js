@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
-
+var auth = require('../config/auth');
+var isUser = auth.isUser;
 var Student = require('../models/student');
 
 
-router.get('/', function(req, res){
+router.get('/', isUser, function(req, res){
     
     Student.find(function(err, students){
         if(err) return console.log(err);
@@ -15,7 +16,7 @@ router.get('/', function(req, res){
 });
 
 //GET add page
-router.get('/add-student', function(req, res){
+router.get('/add-student', isUser, function(req, res){
 
     var lastName = "";
     var firstName = "";
@@ -47,7 +48,7 @@ router.get('/add-student', function(req, res){
 });
 
 //POST add page
-router.post('/add-student', function(req, res){
+router.post('/add-student', isUser, function(req, res){
     
     req.checkBody('lastName', 'You need to introduce a name').not().isEmpty();
     req.checkBody('firstName', 'You need to introduce a first name').not().isEmpty();

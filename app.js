@@ -74,6 +74,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 // parse application/json
 app.use(bodyParser.json());
 
+app.use('/build/contracts', express.static('build/contracts'))
+
 //Express Session middleware
 app.use(session({
 	secret: 'keyboard cat',

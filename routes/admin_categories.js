@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
-
+var auth = require('../config/auth');
+var isUser = auth.isUser;
 var Category = require('../models/category');
 
 
-router.get('/', function(req, res){
+router.get('/', isUser, function(req, res){
     Category.find(function(err, categories){
         if(err) return console.log(err);
         res.render('admin/categories', {
@@ -14,7 +15,7 @@ router.get('/', function(req, res){
 });
 
 //GET add page
-router.get('/add-category', function(req, res){
+router.get('/add-category', isUser, function(req, res){
 
     var title = "";
 
@@ -24,7 +25,7 @@ router.get('/add-category', function(req, res){
 });
 
 //POST add page
-router.post('/add-category', function(req, res){
+router.post('/add-category', isUser, function(req, res){
     console.log('aici');
     req.checkBody('title', 'Este nevoie de un nume pentru document').not().isEmpty();
 
@@ -67,36 +68,13 @@ router.post('/add-category', function(req, res){
 
 //get delete
 
-router.get('/delete-category/:id', function(req, res){
+router.get('/delete-category/:id', isUser, function(req, res){
 	Category.findByIdAndRemove(req.params.id, function(err){
 		if(err) return console.log(err);
 		req.flash('success', 'Category deleted');
 		res.redirect('/admin/categories/');
 	})
 })
-
-// router.post('/reorder-pages', function(req, res){
-//     var ids = req.body['id[]'];
-
-//     var count = 0;
-
-//     for (var i = 0; i < ids.length; i++){
-//         var id = ids[i];
-//         count++;
-
-//         (function(count){
-
-//             Page.findById(id, function(err, page){
-//                 page.sorting = count;
-//                 page.save(function(err){
-//                     if(err){
-//                         return console.log(err);
-//                     }
-//                 });
-//             });
-//         })(count);
-//     }
-// });
 
 //Exports
 module.exports = router;

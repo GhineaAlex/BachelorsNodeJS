@@ -27,6 +27,10 @@ var DiplomaSchema = mongoose.Schema({
     document: {
         type: String
     },
+    emailStudent: {
+      type: String,
+      required: true
+    },
     hashId: {
       type: String,
       required: true
