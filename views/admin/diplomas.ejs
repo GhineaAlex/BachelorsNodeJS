@@ -7,43 +7,6 @@
     <p>Cautarea poate fi realizata dupa <strong>student</strong>, <strong>categorie</strong>, <strong>oras</strong></p>  
     <input class="form-control" id="inputFilter" type="text" placeholder="Search.." />
 </div>
-
-<div class="container" style="width: 650px;">
-    <div class="row">
-      <div class="col-lg-12">
-        <h1 class="text-center">Election Results</h1>
-        <hr />
-        <br/>
-        <div id="loader">
-          <p class="text-center">Loading...</p>
-        </div>
-        <div id="content" style="display: none;">
-          <table class="table">
-            <thread>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Votes</th>
-              </tr>
-            </thread>
-            <tbody id="candidatesResults">
-            </tbody>    
-          </table>
-          <hr/>
-          <form onSubmit="App.castVote(); return false;">
-            <div class="form-group">
-              <label for="candidatesSelect">Select Candidate</label>
-              <select class="form-control" id="candidatesSelect">
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Vote</button>
-            <hr />
-            <p id="accountAddress" class="text-center"></p>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
   
 <% if (count > 0) { %>
 
@@ -81,7 +44,7 @@
 
 </table>
 <% } else { %>
-<h3 class="text-center">No diplomas here</h3>
+<h3 class="text-center">Nu exista nicio diploma alocata</h3>
 <% } %>
 
 <script>

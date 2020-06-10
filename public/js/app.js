@@ -56,13 +56,7 @@ App = {
   },
 
   render: function(){
-    console.log("am ajuns la render");
     var diplomaInstance;
-    var loader = $("#loader");
-    var content = $("#content");
-
-    loader.show();
-    content.show();
 
     web3.eth.getAccounts(function(error, accounts){
       console.log(error);
@@ -95,34 +89,37 @@ App = {
         processData: false,
         success: function(data)
         {
-          data = JSON.parse(data);
-          console.log(data);
-          if (data.hasOwnProperty('error')){
-              // TODO: afisezi eroare.
-              console.log("eroare");
-              return;
+          try{
+            data = JSON.parse(data);
+            if (data.hasOwnProperty('error')){
+                // TODO: afisezi eroare.
+                console.log("eroare");
+                return;
+            }
+  
+            let cnp = data.student;
+            let city = data.city;
+            let emailStudent = data.emailStudent;
+            let degree = data.degree;
+            let hashValue = data.hashId;
+  
+            App.contracts.DiplomaStore.deployed().then(async function(instance) {
+              console.log(instance.addDiploma);
+              return instance.addDiploma(cnp, city, emailStudent, degree, hashValue, { from: App.accounts });
+            }).then(function(result) {
+              window.location.reload();
+              alert("Diploma a fost introdusa cu succes");
+              console.log("S a salvat.")
+            }).catch(function(err) {
+              alert("Exista o eroare la introducerea diplomei");
+              console.error(err);
+            });
           }
-
-          let cnp = data.student;
-          let city = data.city;
-          let emailStudent = data.emailStudent;
-          let degree = data.degree;
-          let hashValue = data.hashId;
-
-          App.contracts.DiplomaStore.deployed().then(async function(instance) {
-            console.log(instance.addDiploma);
-            return instance.addDiploma(cnp, city, emailStudent, degree, hashValue, { from: App.accounts });
-          }).then(function(result) {
-
-            console.log("Sa salvat.")
-            $("#content").show();
-            $("#loader").show();
-          }).catch(function(err) {
-            console.error(err);
-          });
+          catch(err){
+            console.log("Error Json parse");
+          }
         }
       });
-
       return false;
   }
 };
