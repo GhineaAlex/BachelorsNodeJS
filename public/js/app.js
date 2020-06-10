@@ -55,9 +55,61 @@ App = {
   },
 
   render: function(){
-   
-  },
+    console.log("am ajuns la render");
+    var electionInstance;
+    var loader = $("#loader");
+    var content = $("#content");
 
+    loader.show();
+    content.show();
+
+    web3.eth.getAccounts(function(error, accounts){
+      console.log(error);
+      console.log("contractele sunt" + accounts[0]);
+      $("#accountAddress").html("Your Account: " + accounts[0]);
+    });
+
+    App.contracts.Election.deployed().then(function(instance){
+      electionInstance = instance;
+      return electionInstance.candidatesCount();
+      //tine evidenta tuturor candidatilor din contract mapat (.sol)
+    }).then(function(candidatesCount){
+      var candidatesResults = $("#candidatesResults");
+      candidatesResults.empty();
+
+      var candidatesSelect = $('#candidatesSelect');
+      candidatesSelect.empty();
+
+      for (var i = 1; i <= candidatesCount; i++){
+        electionInstance.candidates(i).then(function(candidate){
+          var id = candidate[0];
+          var name = candidate[1];
+          var voteCount = candidate[2];
+
+          var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>";
+          candidatesResults.append(candidateTemplate);
+
+          var candidateOption = "<option value='" + id + "' >" + name + "</ option>";
+          candidatesSelect.append(candidateOption);
+        });
+      }
+      return electionInstance.voters(App.account);
+    }).then(function(hasVoted) {
+      // Do not allow a user to vote
+      if(hasVoted) {
+        $('form').hide();
+      }
+      
+      loader.hide();
+      console.log("test 1");
+      content.show();
+    }).catch(function(error) {
+      console.warn(error);
+    });
+  },
+  castDiploma: function(){
+    var 
+  },
   castVote: function() {
     var candidateId = $('#candidatesSelect').val();
     App.contracts.Election.deployed().then(async function(instance) {
