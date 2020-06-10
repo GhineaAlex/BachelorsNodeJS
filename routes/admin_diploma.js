@@ -79,6 +79,9 @@ router.post('/add-diploma', isUser, function (req, res) {
     var errors = req.validationErrors();
 
     if (errors) {
+        // TODO: Mizerie.. de facut un json cu eroare
+        res.json({error: "eroare"});
+        /*
         Category.find(function (err, categories) {
             res.render('admin/add_diploma', {
                 errors: errors,
@@ -87,7 +90,7 @@ router.post('/add-diploma', isUser, function (req, res) {
                 desc: desc,
                 user: req.user
             });
-        });
+        });*/
     } else {
         Diploma.findOne({ slug: slug }, function (err, diploma) {
             console.log('path-ul este = ' + fileName);
@@ -138,8 +141,7 @@ router.post('/add-diploma', isUser, function (req, res) {
                             return console.log(err)
                         });
                     }
-                    req.flash('success', 'Diploma a fost adaugata cu succes!');
-                    res.redirect('/admin/diplomas');
+                    res.json(JSON.stringify(diploma));
                 })
             })
         })

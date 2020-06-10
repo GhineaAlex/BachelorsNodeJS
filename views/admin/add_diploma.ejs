@@ -5,12 +5,12 @@
 <br><br>
 <div class="card bg-light">
     <article class="card-body mx-auto" style="max-width: 1200px;">
-        <form method="post" action="/admin/diplomas/add-diploma" enctype="multipart/form-data">
+        <form onsubmit="return App.castDiploma(event);" id="fmDiploma" method="post" action="/admin/diplomas/add-diploma" enctype="multipart/form-data">
             <label >Alege studentul caruia i se aloca diploma. Alocare se face dupa ID-ul unic (CNP).</label>
             <div class="form-group ">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fas fa-user"></i></span>
-                    <select name="student" class="form-control">
+                    <select name="student" id="cnp" class="form-control">
                         <% students.forEach(function(stud) {%>
                         <option value="<%= stud.cnp %>"><%= stud.cnp; %></option>
                         <% });%>

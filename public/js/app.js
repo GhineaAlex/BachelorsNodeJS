@@ -21,16 +21,17 @@ App = {
   },
 
   initContract: function() {
-    console.log(1);
-    $.getJSON("../build/contracts/Election.json", function(election){
+    console.log(window.location.pathname);
+    
+    $.getJSON("/build/contracts/DiplomaStore.json", function(diplomaStore){
       
       console.log(2);
       //generarea unui contract truffle din artifact
-      App.contracts.Election = TruffleContract(election);
+      App.contracts.DiplomaStore = TruffleContract(diplomaStore);
       //conectarea la un provider pentru a interacta cu contractul
-      App.contracts.Election.setProvider(App.web3Provider);
+      App.contracts.DiplomaStore.setProvider(App.web3Provider);
       
-      App.contracts.Election.setProvider(App.web3Provider);
+      App.contracts.DiplomaStore.setProvider(App.web3Provider);
       App.listenForEvents();
       return App.render();
       //folosim un json pentru a incarca smart contract-ul, 
@@ -38,7 +39,7 @@ App = {
   },
 
   listenForEvents: function() {
-    App.contracts.Election.deployed().then(function(instance){
+    App.contracts.DiplomaStore.deployed().then(function(instance){
       //solidity ofera posibilitatea de a pasa unui eveniment, filtre ca arugmente intre {}
       instance.votedEvent({}, {
         fromBlock: 0,
@@ -56,7 +57,7 @@ App = {
 
   render: function(){
     console.log("am ajuns la render");
-    var electionInstance;
+    var diplomaInstance;
     var loader = $("#loader");
     var content = $("#content");
 
@@ -69,63 +70,60 @@ App = {
       $("#accountAddress").html("Your Account: " + accounts[0]);
     });
 
-    App.contracts.Election.deployed().then(function(instance){
-      electionInstance = instance;
+    App.contracts.DiplomaStore.deployed().then(function(instance){
+      diplomaInstance = instance;
       return electionInstance.candidatesCount();
       //tine evidenta tuturor candidatilor din contract mapat (.sol)
-    }).then(function(candidatesCount){
-      var candidatesResults = $("#candidatesResults");
-      candidatesResults.empty();
-
-      var candidatesSelect = $('#candidatesSelect');
-      candidatesSelect.empty();
-
-      for (var i = 1; i <= candidatesCount; i++){
-        electionInstance.candidates(i).then(function(candidate){
-          var id = candidate[0];
-          var name = candidate[1];
-          var voteCount = candidate[2];
-
-          var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>";
-          candidatesResults.append(candidateTemplate);
-
-          var candidateOption = "<option value='" + id + "' >" + name + "</ option>";
-          candidatesSelect.append(candidateOption);
-        });
-      }
-      return electionInstance.voters(App.account);
-    }).then(function(hasVoted) {
+    }).then(function(hasAdded) {
       // Do not allow a user to vote
-      if(hasVoted) {
-        $('form').hide();
-      }
       
-      loader.hide();
-      console.log("test 1");
-      content.show();
     }).catch(function(error) {
       console.warn(error);
     });
   },
-  castDiploma: function(){
-    var 
-  },
-  castVote: function() {
-    var candidateId = $('#candidatesSelect').val();
-    App.contracts.Election.deployed().then(async function(instance) {
-      // console.log(candidateId);
-      // console.log(App.account);
-      // console.log(web3.eth.getAccounts());
-      // console.log(x);
+  castDiploma: function(e){
+      e.preventDefault();
+      let form = document.querySelector("#fmDiploma");
+      let url = form.getAttribute('action');
+      let formData = new FormData(form);
+  
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data)
+        {
+          data = JSON.parse(data);
+          console.log(data);
+          if (data.hasOwnProperty('error')){
+              // TODO: afisezi eroare.
+              console.log("eroare");
+              return;
+          }
 
-      return instance.vote(candidateId, { from: App.accounts });
-    }).then(function(result) {
-      // Wait for votes to update
-      $("#content").show();
-      $("#loader").show();
-    }).catch(function(err) {
-      console.error(err);
-    });
+          let cnp = data.student;
+          let city = data.city;
+          let emailStudent = data.emailStudent;
+          let degree = data.degree;
+          let hashValue = data.hashId;
+
+          App.contracts.DiplomaStore.deployed().then(async function(instance) {
+            console.log(instance.addDiploma);
+            return instance.addDiploma(cnp, city, emailStudent, degree, hashValue, { from: App.accounts });
+          }).then(function(result) {
+
+            console.log("Sa salvat.")
+            $("#content").show();
+            $("#loader").show();
+          }).catch(function(err) {
+            console.error(err);
+          });
+        }
+      });
+
+      return false;
   }
 };
 

@@ -1,5 +1,5 @@
-var Election = artifacts.require("./Election.sol");
+var DiplomaStore = artifacts.require("./DiplomaStore.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(Election);
+  deployer.deploy(DiplomaStore);
 };
