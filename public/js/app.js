@@ -1,11 +1,8 @@
 App = {
   web3Provider: null,
   contracts: {},
-  account: '0x0',
 
   init: async function() {
-    // Load pets.
-    console.log("a fost init contract");
     return App.initWeb3();
   },
 
@@ -21,11 +18,7 @@ App = {
   },
 
   initContract: function() {
-    console.log(window.location.pathname);
-    
     $.getJSON("/build/contracts/DiplomaStore.json", function(diplomaStore){
-      
-      console.log(2);
       //generarea unui contract truffle din artifact
       App.contracts.DiplomaStore = TruffleContract(diplomaStore);
       //conectarea la un provider pentru a interacta cu contractul
@@ -37,11 +30,10 @@ App = {
       //folosim un json pentru a incarca smart contract-ul, 
     });
   },
-
   listenForEvents: function() {
     App.contracts.DiplomaStore.deployed().then(function(instance){
       //solidity ofera posibilitatea de a pasa unui eveniment, filtre ca arugmente intre {}
-      instance.votedEvent({}, {
+      instance.logDiplomaAdded({}, {
         fromBlock: 0,
         toBlock: 'latest'
       }).watch(function(error,event){
@@ -62,17 +54,6 @@ App = {
       console.log(error);
       console.log("contractele sunt" + accounts[0]);
       $("#accountAddress").html("Your Account: " + accounts[0]);
-    });
-
-    App.contracts.DiplomaStore.deployed().then(function(instance){
-      diplomaInstance = instance;
-      return electionInstance.candidatesCount();
-      //tine evidenta tuturor candidatilor din contract mapat (.sol)
-    }).then(function(hasAdded) {
-      // Do not allow a user to vote
-      
-    }).catch(function(error) {
-      console.warn(error);
     });
   },
   castDiploma: function(e){
@@ -109,7 +90,6 @@ App = {
             }).then(function(result) {
               window.location.reload();
               alert("Diploma a fost introdusa cu succes");
-              console.log("S a salvat.")
             }).catch(function(err) {
               alert("Exista o eroare la introducerea diplomei");
               console.error(err);
