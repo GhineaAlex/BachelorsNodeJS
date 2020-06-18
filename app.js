@@ -1,18 +1,17 @@
-var express = require('express');
-var path = require('path');
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const expressValidator = require('express-validator');
 
-var mongoose = require('mongoose');
-var config = require('./config/database');
+const mongoose = require('mongoose');
+const config = require('./config/database');
 
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var expressValidator = require('express-validator');
-var fileUpload = require('express-fileupload');
-var passport = require('passport');
+const fileUpload = require('express-fileupload');
+const passport = require('passport');
 
-// this.context.moment = require("moment"); 
-// this.context.moment.lang(this.context.page.language);
-//Connect to db
+
+//Conexiunea la BD
 mongoose.connect(config.database, {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
