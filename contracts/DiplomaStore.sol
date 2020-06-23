@@ -1,6 +1,7 @@
 pragma solidity >=0.5.12 <0.7.0;
 
 contract DiplomaStore {
+
     struct Diploma {
         string cnp; //cnp-ul studentului
         string city; //oras universitate
@@ -61,6 +62,8 @@ contract DiplomaStore {
 
         //     }
         // }
+
+        require(owner == msg.sender, "Persoana nu poate executa contractul inteligent.");
         Diploma memory diploma = Diploma(_cnp, _city, _emailStudent, _degree, _hashValue);
         
         university[msg.sender].push(diploma);
