@@ -8,7 +8,7 @@ var Diploma = require('../models/diploma');
 var auth = require('../config/auth');
 var isUser = auth.isUser;
 var Category = require('../models/category');
-
+var Student = require('../models/student');
 const nodemailer = require('nodemailer');
 console.log("adresa email " + process.env.EMAIL);
 let transporter = nodemailer.createTransport({
@@ -42,16 +42,20 @@ router.get('/add-diploma', isUser, function (req, res) {
     var city = "";
     var desc = "";
     var document = "";
-
-    Category.find(function (err, categories) {
-        res.render('admin/add_diploma', {
-            degree: degree,
-            city: city,
-            desc: desc,
-            categories: categories,
-            document: document
-            
-        });
+    var emailStudent = "";
+    Student.find(function (err, students) {
+        Category.find(function (err, categories){
+            res.render('admin/add_diploma', {
+                degree: degree,
+                city: city,
+                desc: desc,
+                students: students,
+                categories: categories,
+                emailStudent: emailStudent,
+                document: document
+                
+            });
+        })
     });
 });
 
@@ -79,18 +83,7 @@ router.post('/add-diploma', isUser, function (req, res) {
     var errors = req.validationErrors();
 
     if (errors) {
-        // TODO: Mizerie.. de facut un json cu eroare
-        res.json({error: "eroare"});
-        /*
-        Category.find(function (err, categories) {
-            res.render('admin/add_diploma', {
-                errors: errors,
-                degree: degree,
-                city: city,
-                desc: desc,
-                user: req.user
-            });
-        });*/
+        res.json({error: "Eroare la introducerea unei diplome"});
     } else {
         Diploma.findOne({ slug: slug }, function (err, diploma) {
             console.log('path-ul este = ' + fileName);

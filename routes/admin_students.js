@@ -6,7 +6,6 @@ var Student = require('../models/student');
 
 
 router.get('/', isUser, function(req, res){
-    
     Student.find(function(err, students){
         if(err) return console.log(err);
         res.render('admin/students', {
@@ -50,15 +49,15 @@ router.get('/add-student', isUser, function(req, res){
 //POST add page
 router.post('/add-student', isUser, function(req, res){
     
-    req.checkBody('lastName', 'You need to introduce a name').not().isEmpty();
-    req.checkBody('firstName', 'You need to introduce a first name').not().isEmpty();
-    req.checkBody('birthCountry', 'You need to introduce the birth country').not().isEmpty();
-    req.checkBody('birthCounty', 'You need to introduce the birth county').not().isEmpty();
-    req.checkBody('gender', 'You need to introduce the gender').not().isEmpty();
-    req.checkBody('cnp', 'You need to introduce the cnp').not().isEmpty();
-    req.checkBody('idCi', 'You need to introduce the id of the CI').not().isEmpty();
-    req.checkBody('collegeName', 'You need to introduce the name of the college').not().isEmpty();
-    req.checkBody('typeOfStudy', 'You need to introduce the type of Study').not().isEmpty();
+    req.checkBody('lastName', 'Trebuie introdus numele de familie').not().isEmpty();
+    req.checkBody('firstName', 'Trebuie introdus prenumele').not().isEmpty();
+    req.checkBody('birthCountry', 'Trebuie introdusa tara de nastere').not().isEmpty();
+    req.checkBody('birthCounty', 'Trebuie introdus judetul de nastere').not().isEmpty();
+    req.checkBody('gender', 'Trebuie introdus sexul').not().isEmpty();
+    req.checkBody('cnp', 'Trebuie introdus CNP').not().isEmpty();
+    req.checkBody('idCi', 'Trebuia introdusa seria').not().isEmpty();
+    req.checkBody('collegeName', 'Trebuie introdus numele Facultatii').not().isEmpty();
+    req.checkBody('typeOfStudy', 'Trebuie introdus tipul de studiu (Cu Frecventa, Fara Frecventa, Invatamant la Distanta)').not().isEmpty();
     
     var lastName = req.body.lastName;
     var firstName = req.body.firstName;

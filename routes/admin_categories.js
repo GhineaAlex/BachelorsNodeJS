@@ -26,7 +26,7 @@ router.get('/add-category', isUser, function(req, res){
 
 //POST add page
 router.post('/add-category', isUser, function(req, res){
-    console.log('aici');
+   
     req.checkBody('title', 'Este nevoie de un nume pentru document').not().isEmpty();
 
     var title = req.body.title;

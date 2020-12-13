@@ -1,7 +1,9 @@
 img.pimage {
     width: 100px;
 }
-
+.mycell {
+  max-width:2px; 
+}
 a.pa {
     display: inline-block;
     height: 160px;
@@ -551,10 +553,61 @@ body {
     margin-bottom: 0;
   }
   
- 
-  
+ .content-section {
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
+}
 
-  
+.content-section-heading h2 {
+  font-size: 3rem;
+}
+
+.content-section-heading h3 {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.service-icon {
+  background-color: #fff;
+  color: #1D809F;
+  height: 7rem;
+  width: 7rem;
+  display: block;
+  line-height: 7.5rem;
+  font-size: 2.25rem;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.text-faded {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.portfolio-item .caption .caption-content {
+  color: #fff;
+  margin: auto 2rem 2rem;
+}
+
+.portfolio-item .caption .caption-content h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.portfolio-item .caption .caption-content p {
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
+.bg-primary {
+  background-color: #1D809F !important;
+}
+
+.text-primary {
+  color: #1D809F !important;
+}
+
+.text-secondary {
+  color: #ecb807 !important;
+}
   
   /*--------------------------------------------------------------
   # Footer

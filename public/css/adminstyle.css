@@ -23,4 +23,6 @@ footer {
        color: white;
        text-align: center;
     }
-    
+.mycell {
+    max-width:2px; 
+}

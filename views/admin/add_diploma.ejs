@@ -1,18 +1,18 @@
 <%- include('../_layouts/adminheader') %>
 
-<h2 class="page-title"> Adauga o diploma</h2>
-<a href="/admin/diplomas" class="btn btn-primary">Inapoi la toate diplomele</a>
+<h2 class="page-title"> Add a new diploma to a student</h2>
+<a href="/admin/diplomas" class="btn btn-primary">Back</a>
 <br><br>
 <div class="card bg-light">
     <article class="card-body mx-auto" style="max-width: 1200px;">
         <form onsubmit="return App.castDiploma(event);" id="fmDiploma" method="post" action="/admin/diplomas/add-diploma" enctype="multipart/form-data">
-            <label >Alege studentul caruia i se aloca diploma. Alocare se face dupa ID-ul unic (CNP).</label>
+            <label >The student is identified by his unique ID.</label>
             <div class="form-group ">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fas fa-user"></i></span>
-                    <select name="student" id="cnp" class="form-control">
+                    <select name="student" class="form-control">
                         <% students.forEach(function(stud) {%>
-                        <option value="<%= stud.cnp %>"><%= stud.cnp; %></option>
+                        <option value="<%= stud.cnp %>"><%= stud.cnp %></option>
                         <% });%>
                     </select>
                 </div>
@@ -23,7 +23,7 @@
                 <span class="input-group-text"> <i class="fas fa-university"></i></i></span>
                 <!-- <input type="text" class="form-control" name="degree" value="<%= degree %>" placeholder="Degree"> -->
                 <div class="input-mysize"><input type="text" name="degree" class="form-control"
-                        placeholder="Tipul de licenta"></div>
+                        placeholder="Type of diploma"></div>
             </div>
 
             <div class="form-group input-group">
@@ -37,7 +37,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fas fa-building"></i></span>
                 </div>
-                <div class="input-mysize"><input type="text" name="city" class="form-control" placeholder="Oras"></div>
+                <div class="input-mysize"><input type="text" name="city" class="form-control" placeholder="City"></div>
             </div>
 
             <div class="form-group ">
@@ -45,7 +45,7 @@
                     <span class="input-group-text"> <i class="fas fa-book"></i></span>
                     <select name="category" class="form-control">
                         <% categories.forEach(function(cat) {%>
-                        <option value="<%= cat.slug %>"><%= cat.title %></option>
+                        <option value="<%= cat.title %>"><%= cat.title %></option>
                         <% });%>
                     </select>
                 </div>
@@ -54,7 +54,7 @@
             <div class="form-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fas fa-building"></i></span>
-                    <textarea name="desc" class="form-control" cols="30" placeholder="Descriere"><%= desc %></textarea>
+                    <textarea name="desc" class="form-control" cols="30" placeholder="Description"><%= desc %></textarea>
                 </div>
             </div>
 
@@ -64,14 +64,12 @@
                     <input type="file" class="form-control" name="document" id="document">
                     <img src="#" id="imgPreview" alt="">
                 </div>
-                <label class="text-size">Tipul documentului trebuie sa fie de tip JPEG/PNG.</label>
-
             </div>
 
             <div class="form-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fas fa-file-pdf"></i></span>
-                    <input type="text" class="form-control" name="fileName" placeholder="Numele documentului">
+                    <input type="text" class="form-control" name="fileName" placeholder="Name of the document">
                 </div>
             </div>
 
@@ -80,10 +78,9 @@
                     <span class="input-group-text"> <i class="fas fa-file-image"></i></span>
                     <input type="file" class="form-control" name="file">
                 </div>
-                <label class="text-size">Documentul poate fi in orice format.</label>
             </div>
 
-            <button class="btn btn-primary"> Inregistreaza diploma</button>
+            <button class="btn btn-primary">Register the new diploma</button>
         </form>
     </article>
 </div>

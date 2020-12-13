@@ -91,8 +91,8 @@ App = {
               window.location.reload();
               alert("Diploma a fost introdusa cu succes");
             }).catch(function(err) {
-              alert("Exista o eroare la introducerea diplomei");
-              console.error(err);
+              console.log(err);
+              alert("Exista o eroare la introducerea diplomei - contract inteligent");
             });
           }
           catch(err){

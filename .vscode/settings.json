@@ -2,5 +2,7 @@
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/5912d10a-b3b7-4c79-b692-689c26bb1938/resourceGroups/thesis/providers/Microsoft.Web/sites/diplomablock",
+    "appService.deploySubpath": "."
 }

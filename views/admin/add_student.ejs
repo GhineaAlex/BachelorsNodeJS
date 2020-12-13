@@ -1,7 +1,7 @@
 <%- include('../_layouts/adminheader') %>
 
-<h2 class="page-title"> Add a student </h2>
-<a href="/admin/students" class="btn btn-primary">Inapoi la lista de studenti</a>
+<h2 class="page-title">  Add a new student </h2>
+<a href="/admin/students" class="btn btn-primary">Back to the list of students</a>
 <br><br>
 <div class="card bg-light">
     <article class="card-body mx-auto" style="max-width: 1200px;">
@@ -9,14 +9,14 @@
             <div class="form-group input-group">
                 <div class="input-group-prepend"></div>
                 <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
-                <div class="input-mysize"><input type="text" name="lastName" class="form-control" placeholder="Nume">
+                <div class="input-mysize"><input type="text" name="lastName" class="form-control" placeholder="Name">
                 </div>
             </div>
             <div class="form-group input-group">
                 <div class="input-group-prepend"></div>
                 <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
                 <div class="input-mysize"><input type="text" name="firstName" class="form-control"
-                        placeholder="Prenume"></div>
+                        placeholder="Surname"></div>
             </div>
             <div class="form-group input-group">
                 <div class="input-group-prepend"></div>
@@ -24,7 +24,7 @@
                 <div class="input-mysize"><input type="text" name="emailStudent" class="form-control"
                         placeholder="Email"></div>
             </div>
-            <label>Data nastere</label>
+            <label>Date of birth</label>
             <div class="form-group input-group">
                 <div class="input-group-prepend"></div>
                 <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
@@ -35,13 +35,13 @@
                 <div class="input-group-prepend"></div>
                 <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
                 <div class="input-mysize"><input type="text" name="birthCountry" class="form-control"
-                        placeholder="Tara nastere"></div>
+                        placeholder="Birth Country"></div>
             </div>
             <div class="form-group input-group">
                 <div class="input-group-prepend"></div>
                 <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
                 <div class="input-mysize"><input type="text" name="birthCounty" class="form-control"
-                        placeholder="Judet nastere"></div>
+                        placeholder="Birth county"></div>
             </div>
             <div class="form-group input-group">
                 <div class="input-group-prepend"></div>
@@ -51,15 +51,16 @@
             <div class="form-group input-group">
                 <div class="input-group-prepend"></div>
                 <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
-                <div class="input-mysize"><input type="text" name="cnp" class="form-control" placeholder="CNP"></div>
+                <input type="text" class="form-control" name ="cnp" value="<%= cnp %>" placeholder="CNP">
+                <!-- <div class="input-mysize"><input type="text" name="cnp" class="form-control" placeholder="CNP"></div> -->
             </div>
             <div class="form-group input-group">
                 <div class="input-group-prepend"></div>
                 <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
-                <div class="input-mysize"><input type="text" name="idCi" class="form-control" placeholder="Serie CI">
+                <div class="input-mysize"><input type="text" name="idCi" class="form-control" placeholder="ID Number">
                 </div>
             </div>
-            <label>Data expirare CI</label>
+            <label>Expiration date ID</label>
             <div class="form-group input-group">
                 <div class="input-group-prepend"></div>
                 <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
@@ -70,16 +71,16 @@
                 <div class="input-group-prepend"></div>
                 <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
                 <div class="input-mysize"><input type="text" name="collegeName" class="form-control"
-                        placeholder="Nume Specializare"></div>
+                        placeholder="Major"></div>
             </div>
             <div class="form-group input-group">
                 <div class="input-group-prepend"></div>
                 <span class="input-group-text"> <i class="fas fa-user"></i></i></span>
                 <div class="input-mysize"><input type="text" name="typeOfStudy" class="form-control"
-                        placeholder="Tip studiu"></div>
+                        placeholder="Type of study"></div>
             </div>
 
-            <button class="btn btn-primary">Inregistreaza student</button>
+            <button class="btn btn-primary">Register a new student</button>
         </form>
     </article>
 </div>

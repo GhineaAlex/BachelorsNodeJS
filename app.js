@@ -153,7 +153,7 @@ var pages = require('./routes/pages.js');
 var adminPages = require('./routes/admin_pages.js');
 var adminCategories = require('./routes/admin_categories.js');
 var adminStudents = require('./routes/admin_students.js');
-var adminDiplomas = require('./routes/admin_diploma');
+var adminDiplomas = require('./routes/admin_diploma.js');
 var diplomas = require('./routes/diplomas.js');
 var users = require('./routes/users.js')
 
@@ -165,10 +165,9 @@ app.use('/diplomas', diplomas);
 app.use('/', pages);
 app.use('/users', users);
 var moment = require('moment');
-var shortDateFormat = "ddd @ h:mmA"; // this is just an example of storing a date format once so you can change it in one place and have it propagate
-app.locals.moment = moment; // this makes moment available as a variable in every EJS page
+var shortDateFormat = "ddd @ h:mmA"; 
+app.locals.moment = moment; 
 app.locals.shortDateFormat = shortDateFormat;
-//Start the server
 var port = 3000;
 app.listen(port, function(){
 	console.log('Server started on port ' + port);
