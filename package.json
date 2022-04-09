@@ -22,7 +22,7 @@
     "fs-extra": "^8.1.0",
     "ipfs-http-client": "^44.0.1",
     "mkdirp": "^1.0.3",
-    "moment": "^2.26.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.9.2",
     "nodemailer": "^6.4.8",
     "passport": "^0.4.1",
