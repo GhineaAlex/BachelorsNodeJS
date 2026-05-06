@@ -23,7 +23,7 @@
     "ipfs-http-client": "^44.0.1",
     "mkdirp": "^1.0.3",
     "moment": "^2.26.0",
-    "mongoose": "^5.9.2",
+    "mongoose": "^6.13.9",
     "nodemailer": "^6.4.8",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
